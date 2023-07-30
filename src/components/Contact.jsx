@@ -1,7 +1,18 @@
+import { useDispatch } from "react-redux"
+import { deleteContact,editContact } from "../store/ContactListSlice"
 import "./Contact.scss"
 
 
-function Contact({contact,handleRemoveContact,handleEditContact}) {
+function Contact({contact}) {
+  const dispatch = useDispatch()
+
+  const handleEditContact = () => {
+    dispatch(editContact(contact))
+  }
+
+  const handleRemoveContact = () => {
+    dispatch(deleteContact(contact))
+  }
   
   return (
     <div className="contact">
@@ -14,8 +25,8 @@ function Contact({contact,handleRemoveContact,handleEditContact}) {
         <div className={`contact__button ${contact.status && 'contact__button--online'}`}>{contact.status?'Online':'Offline'}</div>
     </div>
     <div className="contact__actions">
-      <div className="contact__button contact__button--edit" onClick={()=>handleEditContact(contact)}>Edit</div>
-      <div className="contact__button contact__button--delete" onClick={()=>handleRemoveContact(contact.id)}>Delete</div>
+      <div className="contact__button contact__button--edit" onClick={handleEditContact}>Edit</div>
+      <div className="contact__button contact__button--delete" onClick={handleRemoveContact}>Delete</div>
     </div>  
   </div>
   )

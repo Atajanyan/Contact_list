@@ -1,10 +1,12 @@
 import React, { useRef, useState } from "react";
 import { v4 as uuidv4 } from 'uuid'; 
 import './Form.scss'
+import { useDispatch } from "react-redux";
+import { addContact } from "../store/ContactListSlice";
 
 let validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
-function Form({ handleAddContact,isShow,editStatus,editedContact }) {
+function Form() {
   const initialForm = {
     name: '',
     surname: '',
@@ -13,6 +15,9 @@ function Form({ handleAddContact,isShow,editStatus,editedContact }) {
     photoUrl: '',
     status: false,
   };
+
+
+  const dispatch = useDispatch()
 
   const status = useRef()
 
@@ -36,7 +41,7 @@ function Form({ handleAddContact,isShow,editStatus,editedContact }) {
           id: uuidv4(),
           ...contactInfo,
         };
-        handleAddContact(newContact);
+        dispatch(addContact(newContact))
         setContactInfo(initialForm);
         status.current.checked = false
       }

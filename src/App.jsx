@@ -1,64 +1,29 @@
-import { useState } from "react";
 import Form from "./components/Form";
 import ContactList from "./components/ContactList";
-import "./App.scss";
 import Popup from "./components/Popup";
+import { useDispatch, useSelector } from "react-redux";
+import { IsHidePopup } from "./store/ContactListSlice";
+import "./App.scss";
 
 function App() {
-  const [contacts, setContacts] = useState([]);
-  const [isShow, setIsShow] = useState(false);
-  const [editItem, setEditItem] = useState();
 
-  const handleAddContact = (newContact) => {
-    setContacts([...contacts, newContact]);
-  };
+  const dispatch = useDispatch()
 
-  const handleRemoveContact = (contactId) => {
-    setContacts(contacts.filter((contact) => contact.id !== contactId));
-  };
-
-  const handleEditContact = (editedContact) => {
-    setEditItem(editedContact);
-    setIsShow(true);
-  };
-
-  const handleEditSave = (editItem, editedValue) => {
-    setContacts((prevContacts) =>
-      prevContacts.map((contact) =>
-        contact.id === editItem.id ? editedValue : contact
-      )
-    );
-    setIsShow(false)
-  };
-
-  const handleEditCancel = () => {
-    setIsShow(false)
-  }
+  const isShow = useSelector(store => store.ContactList.isShow)
 
   return (
     <>
       <div
-        onClick={() => setIsShow(false)}
+        onClick={() => dispatch(IsHidePopup())}
         className={isShow ? "disable" : "enable"}
       ></div>
 
         <h1 className="title">CONTACT LIST</h1>
       <div className="container">
-        <Form isShow={isShow} handleAddContact={handleAddContact} />
-        <ContactList
-          contacts={contacts}
-          handleRemoveContact={handleRemoveContact}
-          handleEditContact={handleEditContact}
-         
-        />
-
+        <Form/>
+        <ContactList/>
         {isShow && (
-          <Popup
-            isShow={isShow}
-            contact={editItem}
-            handleEditSave={handleEditSave}
-            handleEditCancel={handleEditCancel}
-          />
+          <Popup/>
         )}
       </div>
     </>
