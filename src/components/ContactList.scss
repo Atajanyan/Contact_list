@@ -1,4 +1,13 @@
-
+.lists-title{
+    width: 100%;
+    text-align: center;
+    color: white;
+    position: sticky;
+    top: 160px;
+    padding: 20px;
+    letter-spacing: 2px;
+    backdrop-filter: blur(10px);
+}
 
 .contact-list{
     width: 100%;

@@ -1,34 +1,18 @@
-import React, { useRef, useState } from "react";
 import { v4 as uuidv4 } from 'uuid'; 
 import './Form.scss'
-import { useDispatch } from "react-redux";
-import { addContact } from "../store/ContactListSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addContact,change } from "../store/ContactListSlice";
 
 let validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 function Form() {
-  const initialForm = {
-    name: '',
-    surname: '',
-    email: '',
-    phone: '',
-    photoUrl: '',
-    status: false,
-  };
 
+  const contactInfo = useSelector(store => store.ContactList.contact)
 
   const dispatch = useDispatch()
 
-  const status = useRef()
-
-  let [contactInfo, setContactInfo] = useState(initialForm);
-
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setContactInfo({
-      ...contactInfo,
-      [name]: value,
-    });
+   dispatch(change({value:e.target.value,checked:e.target.checked,name:e.target.name}))
   };
 
   const handleSubmit = (e) => {
@@ -42,8 +26,6 @@ function Form() {
           ...contactInfo,
         };
         dispatch(addContact(newContact))
-        setContactInfo(initialForm);
-        status.current.checked = false
       }
     }else{
       alert('Fill all required fields *')
@@ -110,12 +92,11 @@ function Form() {
       <label htmlFor="status" className="form__inputs__checkbox">
         status online / offline
         <input
-           ref={status}
            type="checkbox"
            name="status"
+           checked = {contactInfo.status}
            placeholder="Status"
-           value={contactInfo.status}
-            onChange={(e)=>setContactInfo({...contactInfo,status:e.target.checked})}
+            onChange={handleChange}
         />
       </label>
       </div>

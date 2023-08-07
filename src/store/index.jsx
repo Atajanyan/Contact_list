@@ -3,6 +3,6 @@ import ContactListReducer from "./ContactListSlice";
 
 export default configureStore({
     reducer:{
-        ContactList:ContactListReducer
+        ContactList:ContactListReducer,
     }
 })

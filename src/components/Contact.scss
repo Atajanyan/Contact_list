@@ -77,4 +77,16 @@
       }
     }
   }
+
+  &__favorite{
+    display: flex;
+    gap: 50px;
+  }
+  
+  &__star{
+    width: 30px;
+    cursor: pointer;
+  }
 }
+
+

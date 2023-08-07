@@ -9,10 +9,33 @@ body{
   background-color:  rgb(94, 87, 160);
 }
 
-.title{
-  text-align: center;
+.app{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.header{
+  width: 69%;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   color: white;
-  padding: 30px;
+
+  &__categories{
+    display: flex;
+    gap: 30px;
+    a{
+      color: white;
+      text-decoration: none;
+    }
+    .active{
+        text-decoration:2px underline ;
+      }
+  }
 }
 
 .container{
