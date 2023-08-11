@@ -1,23 +1,25 @@
-import { useEffect, useState } from "react"
-import { useSelector } from "react-redux"
+import { useEffect } from "react";
 
-function Search() {
-
-  const contacts = useSelector(store=>store.ContactList.contacts)
-  
-  const [inputValue,setInputValue] = useState('')
-  
-  const [searchList,setSearchList] = useState([...contacts])  
-
-  useEffect(()=>{
-    setSearchList(contacts.filter(e=>e.name.includes(inputValue)))
-  },[inputValue,contacts])
+function Search({
+  contacts,
+  searchList,
+  setSearchList,
+  inputValue,
+  setInputValue,
+}) {
+  useEffect(() => {
+    setSearchList(searchList.filter((e) => e.name.includes(inputValue)));
+  }, [inputValue, contacts]);
 
   return (
-    <div>
-       <input value={inputValue} onChange={(e)=>setInputValue(e.target.value)} type="text"/>
-    </div>
-  )
+      <input
+        className="search"
+        placeholder="...search contact"
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+        type="text"
+      />
+  );
 }
 
-export default Search
+export default Search;

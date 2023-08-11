@@ -17,7 +17,6 @@ const ContactListSlice = createSlice({
     contacts: [],
     editContact: {},
     isShow: false,
-    searchList:[]
   },
   reducers: {
     change(state, action) {
@@ -66,9 +65,6 @@ const ContactListSlice = createSlice({
       state.isShow = false;
     },
 
-    searchContact(state,action){
-      state.search =[]
-    },
   },
   
 });
